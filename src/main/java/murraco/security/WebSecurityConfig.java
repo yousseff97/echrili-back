@@ -18,6 +18,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
   private JwtTokenProvider jwtTokenProvider;
 
+
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
 
