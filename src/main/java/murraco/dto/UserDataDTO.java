@@ -14,6 +14,8 @@ public class UserDataDTO {
   @ApiModelProperty(position = 2)
   List<Role> roles;
 
+
+
   public String getUsername() {
     return username;
   }
