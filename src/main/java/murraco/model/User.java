@@ -1,14 +1,11 @@
 package murraco.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -19,10 +16,10 @@ public class User {
   private Integer id;
 
   @Size(min = 4, max = 255, message = "Minimum username length: 4 characters")
-  @Column(unique = true, nullable = false)
+  @Column( nullable = false)
   private String username;
 
-  @Column(unique = true, nullable = false)
+  @Column( nullable = false)
   private String email;
 
   @Size(min = 8, message = "Minimum password length: 8 characters")
@@ -30,6 +27,45 @@ public class User {
 
   @ElementCollection(fetch = FetchType.EAGER)
   List<Role> roles;
+
+
+
+
+  @ManyToMany
+  protected List<User> friends = null;
+
+  @ManyToMany(mappedBy = "friends")
+  @JsonIgnore
+  protected List<User> befriended = null;
+
+
+  public List getFriends() {
+    return friends;
+  }
+
+//  public void setFriends(List friends) {
+//    this.friends = friends;
+//  }
+
+
+  public void addFriend(User friend) {
+
+    if(this.friends==null)
+    {
+      this.friends=new ArrayList<User>();
+    }
+
+    this.friends.add(friend);
+  }
+
+
+  public List getBefriended() {
+    return befriended;
+  }
+
+  public void setBefriended(List befriended) {
+    this.befriended = befriended;
+  }
 
   public Integer getId() {
     return id;

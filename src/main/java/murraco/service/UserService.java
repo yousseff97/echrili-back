@@ -73,4 +73,9 @@ public class UserService {
     return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
   }
 
+
+  public User save(User user) {
+
+  return userRepository.save(user);
+  }
 }

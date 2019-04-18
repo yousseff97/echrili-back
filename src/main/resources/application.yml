@@ -10,7 +10,7 @@ spring:
     min-idle: 15
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
@@ -22,7 +22,7 @@ security:
   jwt:
     token:
       secret-key: secret-key
-      expire-length: 36000
+      expire-length: 36000000
       
 UserController:
   signin: Authenticates user and returns its JWT token.

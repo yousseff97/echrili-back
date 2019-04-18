@@ -3,10 +3,9 @@ package murraco.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import murraco.dto.MyUserResponseDTO;
+import murraco.model.Role;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +19,12 @@ import murraco.dto.UserResponseDTO;
 import murraco.model.User;
 import murraco.service.UserService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:8080")
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/users")
 @Api(tags = "users")
@@ -39,8 +42,8 @@ public class UserController {
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 422, message = "Invalid username/password supplied")})
     public MyUserResponseDTO login(//
-                                @ApiParam("Username") @RequestParam String username, //
-                                @ApiParam("Password") @RequestParam String password) {
+                                   @ApiParam("Username") @RequestParam String username, //
+                                   @ApiParam("Password") @RequestParam String password) {
         String token = userService.signin(username, password);
         MyUserResponseDTO myUserResponseDTO = modelMapper.map(userService.getUserByToken(token), MyUserResponseDTO.class);
         myUserResponseDTO.setToken(token);
@@ -100,5 +103,26 @@ public class UserController {
     public String refresh(HttpServletRequest req) {
         return userService.refresh(req.getRemoteUser());
     }
+
+    @GetMapping("/friends")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
+    public List getFriendsList(HttpServletRequest req) {
+
+        User user = userService.whoami(req);
+
+//        User test = new User();
+//        test.setUsername("test");
+//        test.setPassword("test12345");
+//        test.setEmail("test@email.com");
+//        test.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
+//
+//        userService.save(test);
+//
+//        user.addFriend(test);
+//        userService.save(user);
+
+        return user.getFriends();
+    }
+
 
 }
