@@ -78,4 +78,8 @@ public class UserService {
 
   return userRepository.save(user);
   }
+
+    public User getUserById(int id) {
+      return userRepository.getOne(id);
+    }
 }

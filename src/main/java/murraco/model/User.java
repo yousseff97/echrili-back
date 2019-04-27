@@ -31,42 +31,6 @@ public class User {
 
 
 
-  @ManyToMany
-  protected List<User> friends = null;
-
-  @ManyToMany(mappedBy = "friends")
-  @JsonIgnore
-  protected List<User> befriended = null;
-
-
-  public List getFriends() {
-    return friends;
-  }
-
-//  public void setFriends(List friends) {
-//    this.friends = friends;
-//  }
-
-
-  public void addFriend(User friend) {
-
-    if(this.friends==null)
-    {
-      this.friends=new ArrayList<User>();
-    }
-
-    this.friends.add(friend);
-  }
-
-
-  public List getBefriended() {
-    return befriended;
-  }
-
-  public void setBefriended(List befriended) {
-    this.befriended = befriended;
-  }
-
   public Integer getId() {
     return id;
   }

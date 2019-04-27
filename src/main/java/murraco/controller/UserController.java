@@ -2,8 +2,12 @@ package murraco.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sun.deploy.net.HttpResponse;
+import murraco.dto.FriendRequestResponse;
 import murraco.dto.MyUserResponseDTO;
+import murraco.model.Request;
 import murraco.model.Role;
+import murraco.service.RequestService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +25,7 @@ import murraco.service.UserService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -35,6 +40,11 @@ public class UserController {
 
     @Autowired
     private ModelMapper modelMapper;
+
+
+    @Autowired
+    private RequestService requestService;
+
 
     @PostMapping("/signin")
     @ApiOperation(value = "${UserController.signin}")
@@ -105,24 +115,49 @@ public class UserController {
     }
 
     @GetMapping("/friends")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
-    public List getFriendsList(HttpServletRequest req) {
+    public List<User> getFriendsList(HttpServletRequest req) {
+        //User currentUser = userService.whoami(req);
+        User currentUser = userService.getUserById(1);
+        System.out.println(currentUser);
+        List<User> ret = new ArrayList<>();
+        List<Request> requests = requestService.getFriends(currentUser);
 
-        User user = userService.whoami(req);
+        for (Request request : requests) {
 
-//        User test = new User();
-//        test.setUsername("test");
-//        test.setPassword("test12345");
-//        test.setEmail("test@email.com");
-//        test.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
-//
-//        userService.save(test);
-//
-//        user.addFriend(test);
-//        userService.save(user);
+            System.out.println(request);
+            System.out.println("1111111");
+            if (request.getFirstUser().getId() != currentUser.getId()) {
+                System.out.println("22222");
+                System.out.println(request.getFirstUser().getUsername());
 
-        return user.getFriends();
+                ret.add(request.getFirstUser());
+            } else {
+                System.out.println("333333");
+                System.out.println(request.getSecondUser().getUsername());
+                ret.add(request.getSecondUser());
+            }
+
+
+        }
+        System.out.println(ret);
+        return ret;
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
