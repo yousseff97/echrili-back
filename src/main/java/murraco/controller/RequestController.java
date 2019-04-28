@@ -1,14 +1,16 @@
 package murraco.controller;
 
-import murraco.dto.FriendRequestResponse;
+import murraco.dto.UserResponseDTO;
 import murraco.model.Request;
 import murraco.model.User;
 import murraco.service.RequestService;
 import murraco.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/request/friend")
 public class RequestController {
 
     @Autowired
@@ -24,6 +27,8 @@ public class RequestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     @GetMapping("/add/{id}")
@@ -65,19 +70,19 @@ public class RequestController {
 
 
 
-    @GetMapping("/requests")
+    @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
-    public List<FriendRequestResponse> getAllFriendRequests(HttpServletRequest req) {
+    public List<UserResponseDTO> getAllFriendRequests(HttpServletRequest req) {
         User whoami = userService.whoami(req);
 
         List<Request> requestList = requestService.getRequestsBySecondUserAndStatusIsFalse(whoami);
-        List<FriendRequestResponse> friendRequestResponses=new ArrayList<>();
+        List<UserResponseDTO> userResponseDTOS=new ArrayList<>();
         for (Request request : requestList) {
             System.out.println(request.getFirstUser().getUsername());
-            friendRequestResponses.add(new FriendRequestResponse(request.getId(),request.getFirstUser()));
+            userResponseDTOS.add(modelMapper.map(request.getFirstUser(), UserResponseDTO.class));
         }
 
-        return friendRequestResponses;
+        return userResponseDTOS;
     }
 
 

@@ -2,11 +2,8 @@ package murraco.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.sun.deploy.net.HttpResponse;
-import murraco.dto.FriendRequestResponse;
 import murraco.dto.MyUserResponseDTO;
 import murraco.model.Request;
-import murraco.model.Role;
 import murraco.service.RequestService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +21,6 @@ import murraco.model.User;
 import murraco.service.UserService;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -116,8 +111,8 @@ public class UserController {
 
     @GetMapping("/friends")
     public List<User> getFriendsList(HttpServletRequest req) {
-        //User currentUser = userService.whoami(req);
-        User currentUser = userService.getUserById(1);
+        User currentUser = userService.whoami(req);
+       // User currentUser = userService.getUserById(1);
         System.out.println(currentUser);
         List<User> ret = new ArrayList<>();
         List<Request> requests = requestService.getFriends(currentUser);
@@ -145,19 +140,19 @@ public class UserController {
     }
 
 
+    //  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
+    @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
+    public List<UserResponseDTO> getAllUsersExceptRequest(HttpServletRequest req) {
+        User currentUser = userService.whoami(req);
+        List<UserResponseDTO> ret = new ArrayList<>();
+        for (User user : userService.getAllUsersExceptRequest(currentUser)) {
+            ret.add(modelMapper.map(user, UserResponseDTO.class));
+        }
 
+        return ret;
 
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 }

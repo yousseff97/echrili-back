@@ -6,9 +6,9 @@ public class FriendRequestResponse {
 
    private int requestId;
 
-   private User user;
+   private UserResponseDTO user;
 
-    public FriendRequestResponse(int requestId, User user) {
+    public FriendRequestResponse(int requestId, UserResponseDTO user) {
         this.requestId = requestId;
         this.user = user;
     }
@@ -22,11 +22,12 @@ public class FriendRequestResponse {
         this.requestId = requestId;
     }
 
-    public User getUser() {
+    public UserResponseDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserResponseDTO user) {
         this.user = user;
+
     }
 }

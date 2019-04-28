@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface RequestRepository extends JpaRepository<Request, Integer> {
 
+
+
+
     Request getFirstByFirstUserAndSecondUserAndStatusIsFalse(User firstUser, User secondUser);
     List<Request> getAllByFirstUserAndStatusIsTrue(User user);
     List<Request> getAllBySecondUserAndStatusIsTrue(User user);

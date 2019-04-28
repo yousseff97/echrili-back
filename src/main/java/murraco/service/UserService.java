@@ -15,6 +15,8 @@ import murraco.model.User;
 import murraco.repository.UserRepository;
 import murraco.security.JwtTokenProvider;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -82,4 +84,11 @@ public class UserService {
     public User getUserById(int id) {
       return userRepository.getOne(id);
     }
+
+    public List<User> getAllUsersExceptRequest(User user) {
+
+  // return userRepository.getAllBy();
+  return userRepository.getAllUsersExceptRequest(user);
+
+  }
 }
