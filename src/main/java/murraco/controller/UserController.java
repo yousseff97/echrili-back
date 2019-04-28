@@ -3,8 +3,8 @@ package murraco.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import murraco.dto.MyUserResponseDTO;
-import murraco.model.Request;
-import murraco.service.RequestService;
+import murraco.model.TrustedUsers;
+import murraco.service.TrustedUsersService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,7 +38,7 @@ public class UserController {
 
 
     @Autowired
-    private RequestService requestService;
+    private TrustedUsersService requestService;
 
 
     @PostMapping("/signin")
@@ -115,21 +115,21 @@ public class UserController {
        // User currentUser = userService.getUserById(1);
         System.out.println(currentUser);
         List<User> ret = new ArrayList<>();
-        List<Request> requests = requestService.getFriends(currentUser);
+        List<TrustedUsers> requests = requestService.getFriends(currentUser);
 
-        for (Request request : requests) {
+        for (TrustedUsers request : requests) {
 
             System.out.println(request);
             System.out.println("1111111");
-            if (request.getFirstUser().getId() != currentUser.getId()) {
+            if (request.getUser().getId() != currentUser.getId()) {
                 System.out.println("22222");
-                System.out.println(request.getFirstUser().getUsername());
+                System.out.println(request.getUser().getUsername());
 
-                ret.add(request.getFirstUser());
+                ret.add(request.getUser());
             } else {
                 System.out.println("333333");
-                System.out.println(request.getSecondUser().getUsername());
-                ret.add(request.getSecondUser());
+                System.out.println(request.getTrustedUser().getUsername());
+                ret.add(request.getTrustedUser());
             }
 
 

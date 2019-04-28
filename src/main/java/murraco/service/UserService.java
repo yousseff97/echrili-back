@@ -87,8 +87,8 @@ public class UserService {
 
     public List<User> getAllUsersExceptRequest(User user) {
 
-  // return userRepository.getAllBy();
-  return userRepository.getAllUsersExceptRequest(user);
+   return userRepository.getAllBy();
+ // return userRepository.getAllUsersExceptRequest(user);
 
   }
 }

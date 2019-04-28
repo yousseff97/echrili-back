@@ -24,8 +24,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 
 
-  @Query(value = "select u from User u where not exists (select r from Request r where (r.firstUser=:user or r.secondUser=:user) and (r.firstUser=u.id or r.secondUser=u.id)) ")
-  List<User> getAllUsersExceptRequest(@Param("user") User user);
+//  @Query(value = "select u from User u where not exists (select r from Request r where (r.firstUser=:user or r.secondUser=:user) and (r.firstUser=u.id or r.secondUser=u.id)) ")
+//  List<User> getAllUsersExceptRequest(@Param("user") User user);
 
 
 }

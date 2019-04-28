@@ -1,6 +1,7 @@
 package murraco.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.aspectj.weaver.ast.Not;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +24,33 @@ public class User {
   private String email;
 
   @Size(min = 8, message = "Minimum password length: 8 characters")
+  @JsonIgnore
   private String password;
 
   @ElementCollection(fetch = FetchType.EAGER)
   List<Role> roles;
 
 
+  @OneToMany
+  List<Notification> notifications;
 
+
+  public List<Notification> getNotifications() {
+    return notifications;
+  }
+
+public void addNotification(Notification notification)
+{
+
+  if(notifications==null)
+  {
+    notifications=new ArrayList<>();
+  }
+
+
+  notifications.add(notification);
+
+}
 
   public Integer getId() {
     return id;
