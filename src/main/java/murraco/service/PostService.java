@@ -15,12 +15,12 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
-    public void delete(String id) {
-        postRepository.deleteByID(id);
+    public void delete(int id) {
+        postRepository.deleteById(id);
     }
 
-    public Post search(String id) {
-        Post post = postRepository.findByID(id);
+    public Post search(int id) {
+        Post post = postRepository.findOne(id);
         if (post == null) {
             throw new CustomException("The post doesn't exist", HttpStatus.NOT_FOUND);
         }

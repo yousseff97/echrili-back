@@ -44,7 +44,7 @@ public class PostController {
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 404, message = "The post doesn't exist"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public String delete(@ApiParam("PostID") @PathVariable String id) {
+    public int delete(@ApiParam("PostID") @PathVariable int id) {
         postService.delete(id);
         return id;
     }
