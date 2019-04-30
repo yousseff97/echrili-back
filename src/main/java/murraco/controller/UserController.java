@@ -112,7 +112,7 @@ public class UserController {
     @GetMapping("/friends")
     public List<User> getFriendsList(HttpServletRequest req) {
         User currentUser = userService.whoami(req);
-       // User currentUser = userService.getUserById(1);
+        // User currentUser = userService.getUserById(1);
         System.out.println(currentUser);
         List<User> ret = new ArrayList<>();
         List<TrustedUsers> requests = requestService.getFriends(currentUser);

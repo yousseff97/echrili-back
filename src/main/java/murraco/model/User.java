@@ -35,6 +35,7 @@ public class User {
   List<Notification> notifications;
 
 
+
   public List<Notification> getNotifications() {
     return notifications;
   }
