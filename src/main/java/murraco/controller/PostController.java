@@ -1,26 +1,17 @@
 package murraco.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-import murraco.dto.MyUserResponseDTO;
-import org.modelmapper.ModelMapper;
+import murraco.model.User;
+import murraco.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import murraco.dto.UserDataDTO;
-import murraco.dto.UserResponseDTO;
 import murraco.model.Post;
 import murraco.service.PostService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -31,11 +22,13 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+    @Autowired
+    private UserService userService;
 
-    @GetMapping("/delete")
-    @DeleteMapping(value = "/{post}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${PostController.delete}")
+
+
+    @DeleteMapping("/delete")
+ //   @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
@@ -46,10 +39,11 @@ public class PostController {
         return id;
     }
 
-    @GetMapping("/add")
-    public Post add(@RequestParam("p") Post p) {
+    @PostMapping("/add")
+    public void add(HttpServletRequest req,@RequestBody Post p) {
+        User whoami = userService.whoami(req);
+        p.setUser(whoami);
         postService.add(p);
-        return p;
     }
 
 }

@@ -13,14 +13,6 @@ public class Post {
         this.id = id;
     }
 
-    public Integer getPosterId() {
-        return posterId;
-    }
-
-    public void setPosterId(Integer posterId) {
-        this.posterId = posterId;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -37,12 +29,21 @@ public class Post {
         this.price = price;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column( nullable = false)
-    private Integer posterId;
+    @OneToOne
+    private User user;
+
 
     private String description;
 
