@@ -32,10 +32,7 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
-
+    @GetMapping("/delete")
     @DeleteMapping(value = "/{post}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${PostController.delete}")
@@ -44,10 +41,15 @@ public class PostController {
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 404, message = "The post doesn't exist"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public String delete(@ApiParam("PostID") @PathVariable String id) {
+    public Integer delete(@RequestParam("id") Integer id) {
         postService.delete(id);
         return id;
     }
 
+    @GetMapping("/add")
+    public Post add(@RequestParam("p") Post p) {
+        postService.add(p);
+        return p;
+    }
 
 }

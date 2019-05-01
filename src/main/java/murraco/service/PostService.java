@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import murraco.exception.CustomException;
 import murraco.model.Post;
-import murraco.security.JwtTokenProvider;
 
 @Service
 public class PostService {
@@ -15,12 +14,16 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
-    public void delete(String id) {
-        postRepository.deleteByID(id);
+    public void delete(Integer id) {
+        postRepository.deleteById(id);
     }
 
-    public Post search(String id) {
-        Post post = postRepository.findByID(id);
+    public void add(Post p) {
+        postRepository.save(p);
+    }
+
+    public Post find(Integer id) {
+        Post post = postRepository.findById(id);
         if (post == null) {
             throw new CustomException("The post doesn't exist", HttpStatus.NOT_FOUND);
         }

@@ -10,12 +10,12 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
-    boolean existsByID(String id);
+    boolean existsById(Integer id);
 
-    Post findByID(String id);
+    Post findById(Integer id);
 
     @Transactional
-    void deleteByID(String id);
+    void deleteById(Integer id);
 
 
 

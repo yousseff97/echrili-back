@@ -13,12 +13,12 @@ public class Post {
         this.id = id;
     }
 
-    public Integer getPosterID() {
-        return poster_id;
+    public Integer getPosterId() {
+        return posterId;
     }
 
-    public void setPosterID(Integer poster_id) {
-        this.poster_id = poster_id;
+    public void setPosterId(Integer posterId) {
+        this.posterId = posterId;
     }
 
     public String getDescription() {
@@ -42,13 +42,11 @@ public class Post {
     private Integer id;
 
     @Column( nullable = false)
-    private Integer poster_id;
+    private Integer posterId;
 
     private String description;
 
     @Column( nullable = false)
     private float price;
-
-
 
 }
