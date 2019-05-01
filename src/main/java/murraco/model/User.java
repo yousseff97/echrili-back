@@ -1,6 +1,7 @@
 package murraco.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.aspectj.weaver.ast.Not;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
   @Id
@@ -28,6 +30,7 @@ public class User {
   private String password;
 
   @ElementCollection(fetch = FetchType.EAGER)
+          @JsonIgnore
   List<Role> roles;
 
 
