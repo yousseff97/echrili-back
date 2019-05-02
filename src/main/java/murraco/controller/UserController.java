@@ -162,8 +162,8 @@ public class UserController {
     @PostMapping("/update")
     public void update(HttpServletRequest req,@RequestBody UserDataDTO userDataDTO)
     {
-       // User whoami = userService.whoami(req);
-        User whoami = userService.getUserById(1);
+        User whoami = userService.whoami(req);
+       // User whoami = userService.getUserById(1);
 whoami.setEmail(userDataDTO.getEmail());
 whoami.setUsername(userDataDTO.getUsername());
 whoami.setFirstname(userDataDTO.getFirstname());

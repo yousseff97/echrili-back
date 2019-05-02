@@ -27,8 +27,8 @@ public class BidController {
 
     @PostMapping
     public void save(HttpServletRequest req, @RequestBody BidDataDTO bidDataDTO) {
-       // User whoami=userService.whoami(req);
-        User whoami=userService.getUserById(1);
+        User whoami=userService.whoami(req);
+       // User whoami=userService.getUserById(1);
         Bid bid = new Bid();
         bid.setPrice(bidDataDTO.getPrice());
         bid.setDeliveryTime(bidDataDTO.getDeliveryTime());

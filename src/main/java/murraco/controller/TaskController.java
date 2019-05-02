@@ -42,11 +42,11 @@ public class TaskController {
     }
 
     @GetMapping
-public List<Task> getAllWithoutBid()
+public List<Task> getAllWithoutBid(HttpServletRequest req)
 {
 
-    //  User whoami = userService.whoami(req);
-    User whoami = userService.getUserById(1);
+     User whoami = userService.whoami(req);
+  //  User whoami = userService.getUserById(1);
 
     return this.taskService.getAllWithoutBid(whoami);
 }
@@ -55,8 +55,8 @@ public List<Task> getAllWithoutBid()
 @GetMapping("/my")
 public List<Task> getTasksByUser(HttpServletRequest req)
 {
-    //  User whoami = userService.whoami(req);
-    User whoami = userService.getUserById(1);
+      User whoami = userService.whoami(req);
+   // User whoami = userService.getUserById(1);
 
     return this.taskService.getAllByUser(whoami);
 }
@@ -65,8 +65,8 @@ public List<Task> getTasksByUser(HttpServletRequest req)
 
     @PostMapping("/add")
     public void add(HttpServletRequest req, @RequestBody Task p) {
-      //  User whoami = userService.whoami(req);
-        User whoami = userService.getUserById(1);
+        User whoami = userService.whoami(req);
+      //  User whoami = userService.getUserById(1);
         p.setUser(whoami);
        Task t= taskService.add(p);
        List<TrustedUsers> trustedUsers= trustedUsersService.getAllByUser(whoami);

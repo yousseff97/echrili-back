@@ -32,8 +32,8 @@ public class TrustedUsersController {
 
     @PostMapping("/add/{id}")
     public void addTrustedUser(HttpServletRequest req, @PathVariable int id) {
-    //    User whoami = userService.whoami(req);
-        User whoami = userService.getUserById(1);
+        User whoami = userService.whoami(req);
+      //  User whoami = userService.getUserById(1);
         User trustedUser = userService.getUserById(id);
         if (trustedUsersService.existsByUserAndTrustedUser(whoami, trustedUser)|| (whoami.getId() == id)) {
             throw new CustomException("user already trused", HttpStatus.CONFLICT);
