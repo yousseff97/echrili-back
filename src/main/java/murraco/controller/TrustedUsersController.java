@@ -10,10 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -33,9 +30,10 @@ public class TrustedUsersController {
     private ModelMapper modelMapper;
 
 
-    @GetMapping("/add/{id}")
+    @PostMapping("/add/{id}")
     public void addTrustedUser(HttpServletRequest req, @PathVariable int id) {
-        User whoami = userService.whoami(req);
+    //    User whoami = userService.whoami(req);
+        User whoami = userService.getUserById(1);
         User trustedUser = userService.getUserById(id);
         if (trustedUsersService.existsByUserAndTrustedUser(whoami, trustedUser)|| (whoami.getId() == id)) {
             throw new CustomException("user already trused", HttpStatus.CONFLICT);
