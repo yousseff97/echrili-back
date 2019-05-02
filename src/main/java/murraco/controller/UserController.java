@@ -3,6 +3,7 @@ package murraco.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import murraco.dto.MyUserResponseDTO;
+import murraco.model.Role;
 import murraco.model.TrustedUsers;
 import murraco.service.TrustedUsersService;
 import org.modelmapper.ModelMapper;
@@ -22,6 +23,7 @@ import murraco.model.User;
 import murraco.service.UserService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -68,6 +70,8 @@ public class UserController {
             @ApiResponse(code = 422, message = "Username is already in use"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public String signup(@ApiParam("Signup User") @RequestBody UserDataDTO user) {
+        System.out.println(user.toString());
+        user.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
         return userService.signup(modelMapper.map(user, User.class));
     }
 

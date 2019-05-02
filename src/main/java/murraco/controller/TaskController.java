@@ -34,9 +34,9 @@ public class TaskController {
     private TrustedUsersService trustedUsersService;
 
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     //   @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Integer delete(@RequestParam("id") Integer id) {
+    public Integer delete(@PathVariable int id) {
         taskService.delete(id);
         return id;
     }

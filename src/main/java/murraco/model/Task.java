@@ -98,7 +98,7 @@ public class Task {
     @CreationTimestamp
     private Timestamp createDateTime;
 
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task",cascade = CascadeType.REMOVE)
     private List<Bid> bids;
 
 
