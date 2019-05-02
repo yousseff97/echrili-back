@@ -8,6 +8,7 @@ import murraco.service.TrustedUsersService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.annotations.Api;
@@ -39,6 +40,9 @@ public class UserController {
 
     @Autowired
     private TrustedUsersService requestService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @PostMapping("/signin")
@@ -153,6 +157,23 @@ public class UserController {
         return ret;
 
     }
+
+
+    @PostMapping("/update")
+    public void update(HttpServletRequest req,@RequestBody UserDataDTO userDataDTO)
+    {
+       // User whoami = userService.whoami(req);
+        User whoami = userService.getUserById(1);
+whoami.setEmail(userDataDTO.getEmail());
+whoami.setUsername(userDataDTO.getUsername());
+whoami.setFirstname(userDataDTO.getFirstname());
+whoami.setLastname(userDataDTO.getLastname());
+whoami.setPassword(passwordEncoder.encode(userDataDTO.getPassword()));
+userService.save(whoami);
+
+
+    }
+
 
 
 }
