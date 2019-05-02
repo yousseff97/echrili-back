@@ -32,11 +32,22 @@ public class TaskService {
         return post;
     }
 
-    public List<Task> getAll(User user) {
+    public List<Task> getAllWithoutBid(User user) {
 
        // return this.taskRepository.findAll();
         return this.taskRepository.getAllWithoutBid(user);
     }
 
 
+
+
+    public List<Task> getAllByUser(User user)
+    {
+        return this.taskRepository.getAllByUser(user);
+    }
+
+
+    public Task getOne(int id) {
+    return taskRepository.getOne(id);
+    }
 }

@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -68,6 +69,14 @@ public class Task {
         this.createDateTime = createDateTime;
     }
 
+    public List<Bid> getBids() {
+        return bids;
+    }
+
+    public void setBids(List<Bid> bids) {
+        this.bids = bids;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -88,6 +97,9 @@ public class Task {
 
     @CreationTimestamp
     private Timestamp createDateTime;
+
+    @OneToMany(mappedBy = "task")
+    private List<Bid> bids;
 
 
 }

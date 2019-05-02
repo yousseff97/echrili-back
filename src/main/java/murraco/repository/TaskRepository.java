@@ -22,4 +22,8 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     @Transactional
     void deleteById(Integer id);
 
+
+    List<Task> getAllByUser(User user);
+
+
 }

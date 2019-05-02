@@ -42,14 +42,26 @@ public class TaskController {
     }
 
     @GetMapping
-public List<Task> getAll()
+public List<Task> getAllWithoutBid()
 {
 
     //  User whoami = userService.whoami(req);
     User whoami = userService.getUserById(1);
 
-    return this.taskService.getAll(whoami);
+    return this.taskService.getAllWithoutBid(whoami);
 }
+
+
+@GetMapping("/my")
+public List<Task> getTasksByUser(HttpServletRequest req)
+{
+    //  User whoami = userService.whoami(req);
+    User whoami = userService.getUserById(1);
+
+    return this.taskService.getAllByUser(whoami);
+}
+
+
 
     @PostMapping("/add")
     public void add(HttpServletRequest req, @RequestBody Task p) {

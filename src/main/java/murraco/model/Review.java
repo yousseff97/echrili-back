@@ -1,5 +1,7 @@
 package murraco.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +12,7 @@ public class Review {
     private Integer id;
 
     @OneToOne
+    @JsonIgnore
     private User user;
 
     private float rate=0;

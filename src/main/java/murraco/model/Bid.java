@@ -1,5 +1,8 @@
 package murraco.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javafx.beans.DefaultProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,17 +13,28 @@ public class Bid {
     private Integer id;
 
     @ManyToOne
+    @JsonIgnore
     private Task task;
 
 
     private int price;
 
 
-    private int   deliveryTime;
+    private int deliveryTime;
 
     @OneToOne
     private User user;
 
+    private Boolean status;
+
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public User getUser() {
         return user;

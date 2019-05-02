@@ -37,7 +37,16 @@ public class User {
   @OneToMany
   List<Notification> notifications;
 
+  @OneToOne(mappedBy = "user")
+  Review review;
 
+  public Review getReview() {
+    return review;
+  }
+
+  public void setReview(Review review) {
+    this.review = review;
+  }
 
   public List<Notification> getNotifications() {
     return notifications;
