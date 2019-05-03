@@ -3,6 +3,7 @@ package murraco.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import murraco.dto.MyUserResponseDTO;
+import murraco.model.Review;
 import murraco.model.Role;
 import murraco.model.TrustedUsers;
 import murraco.service.TrustedUsersService;
